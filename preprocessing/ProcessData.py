@@ -1,67 +1,36 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.io import wavfile
-from scipy.fft import fft
 from os import listdir
 from os.path import join
+from FrequencyDomains import get_frequency_domains
+from PiecesOfMusic import get_pieces_of_music
 
 
-def get_preprocessed_data(directory: str, sample_rate: int = 16000, sample_frequency: float = 0.25) -> np.ndarray:
+def get_preprocessed_data(files: list, sample_rate: int = 16000, sample_frequency: int = 4,
+                          length_of_pieces: int = 10) -> tuple[list, list]:
     """
     Get preprocessed data that can be used for training
 
-    :param directory: the location of the folder with raw audio
-    :param sample_rate: the sample rate of all songs
-    :param sample_frequency: the frequency of sampling used
-    :return: numpy array containing frequency domains and something more (finish later)
+    :param files: list of .wav files
+    :param sample_rate: the sample rate of all songs (in Hz)
+    :param sample_frequency: the frequency of sampling data used in getting frequency domains (in Hz)
+    :param length_of_pieces: the length of pieces that the songs will be divided into (in seconds).
+    :return: X and y - both in a form of a list
     """
 
-    files = [join(directory, f) for f in listdir(directory)]
-    no_samples = int(sample_rate * sample_frequency)
+    no_samples = sample_rate // sample_frequency
 
-    #  Frequency domains
-    freq_domains = np.empty(shape=len(files), dtype=np.object)
-    for i in range(len(files)):
+    for i in range(1):
         _, data = wavfile.read(files[i])
-        samples = get_samples(data, no_samples)
-        freq_domains[i] = get_frequency_domains(samples, no_samples)  # Add torch.Tensor ???
 
+        freq_domains = get_frequency_domains(data, no_samples)
+        pieces_of_music = get_pieces_of_music(data, sample_rate, length_of_pieces)
+        print(freq_domains.shape)
 
-def get_samples(data: np.ndarray, no_samples: int) -> np.ndarray:
-    """
-    Get samples from data
-
-    :param data: data read from the .wav file
-    :param no_samples: number of samples
-    :return: numpy array containing samples from data
-    """
-
-    sample_rate = data.shape[0] // no_samples
-    samples = np.empty(shape=no_samples, dtype=np.float32)
-    for i in range(no_samples):
-        samples[i] = data[i * sample_rate]
-
-    return samples
-
-
-def get_frequency_domains(samples: np.ndarray, no_samples: int) -> np.ndarray:
-    """
-    Get frequency domains from data by using Fourier transforms
-
-    :param samples: samples got from the function get_samples
-    :param no_samples: number of samples
-    :return: numpy array containing the frequency domains of the song (real and imaginary part is separated)
-    """
-
-    freq_domains = fft(samples)
-    freq_domains_separated = np.empty(shape=no_samples * 2, dtype=np.float32)
-
-    for i in range(0, no_samples * 2, 2):
-        freq_domains_separated[i] = freq_domains[i // 2].real
-        freq_domains_separated[i + 1] = freq_domains[i // 2].imag
-
-    return freq_domains_separated
+    return [], []
 
 
 if __name__ == '__main__':
-    get_preprocessed_data('../raw_audio')
+    filesa = [join('../raw_audio', f) for f in listdir('../raw_audio')]
+    get_preprocessed_data(filesa)
