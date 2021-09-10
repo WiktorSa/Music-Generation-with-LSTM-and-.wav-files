@@ -2,17 +2,23 @@ import numpy as np
 from scipy.fft import fft
 
 
-def get_frequency_domains(data: np.ndarray, no_samples: int) -> np.ndarray:
+def get_frequency_domains(data: np.ndarray, sample_frequency: int = 1, no_samples: int = None) -> np.ndarray:
     """
     Get frequency domains from data by using Fourier transforms
 
     :param data: data read from the .wav file
-    :param no_samples: number of samples
+    :param sample_frequency: how often to sample data (in Hz).
+    :param no_samples: number of samples to take from data. If None than no_samples = data.shape[0]
     :return: numpy array containing the frequency domains of the song (real and imaginary part is separated)
     """
 
-    samples = get_samples(data, no_samples)
-    freq_domains = fft(samples)
+    if no_samples is None:
+        no_samples = data.shape[0]
+        freq_domains = fft(data)
+    else:
+        samples = get_samples(data, sample_frequency, no_samples)
+        freq_domains = fft(samples)
+
     freq_domains_separated = np.empty(shape=no_samples * 2, dtype=np.float32)
 
     for i in range(0, no_samples * 2, 2):
@@ -22,18 +28,18 @@ def get_frequency_domains(data: np.ndarray, no_samples: int) -> np.ndarray:
     return freq_domains_separated
 
 
-def get_samples(data: np.ndarray, no_samples: int) -> np.ndarray:
+def get_samples(data: np.ndarray, sample_frequency: int, no_samples: int) -> np.ndarray:
     """
     Get samples from data
 
     :param data: data read from the .wav file
-    :param no_samples: number of samples
+    :param sample_frequency: how often to sample data (in Hz).
+    :param no_samples: the number of samples to take from data
     :return: numpy array containing samples from data
     """
 
-    sample_rate = data.shape[0] // no_samples
     samples = np.empty(shape=no_samples, dtype=np.float32)
     for i in range(no_samples):
-        samples[i] = data[i * sample_rate]
+        samples[i] = data[i * sample_frequency]
 
     return samples
