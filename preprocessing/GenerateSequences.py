@@ -1,5 +1,5 @@
 import numpy as np
-from FrequencyDomains import get_frequency_domains
+from preprocessing.GenerateFrequencyDomains import get_frequency_domains
 
 
 def get_sequence_X_and_y(first_piece: np.ndarray, pieces: np.ndarray) -> tuple[np.ndarray, np.ndarray]:

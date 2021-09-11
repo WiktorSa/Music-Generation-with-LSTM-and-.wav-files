@@ -7,7 +7,7 @@ def get_pieces_of_music(data: np.ndarray, sample_rate: int, len_piece: int) -> n
 
     :param data: data read from .wav file
     :param sample_rate: the sample rate of the song
-    :param len_piecee: the length of the single piece
+    :param len_piece: the length of the single piece
     :return: numpy array containing pieces of music
     """
 

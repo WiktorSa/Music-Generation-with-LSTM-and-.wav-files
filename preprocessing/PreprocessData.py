@@ -1,15 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.io import wavfile
-from os import listdir
-from os.path import join
-from FrequencyDomains import get_frequency_domains
-from PiecesOfMusic import get_pieces_of_music
-from Sequence import get_sequence_X_and_y
+from preprocessing.GenerateFrequencyDomains import get_frequency_domains
+from preprocessing.GeneratePiecesOfMusic import get_pieces_of_music
+from preprocessing.GenerateSequences import get_sequence_X_and_y
 
 
 def get_preprocessed_data(files: list, sample_rate: int = 16000, sample_frequency: int = 4, len_window: int = 4000,
-                          len_piece: int = 10) -> tuple[np.ndarray, np.ndarray]:
+                          len_piece: int = 10, seed: int = 1001) -> tuple[np.ndarray, np.ndarray]:
     """
     Get preprocessed data that can be used for training
 
@@ -19,6 +17,7 @@ def get_preprocessed_data(files: list, sample_rate: int = 16000, sample_frequenc
     :param len_window: the length of every window of data. For X the length of the window will be equal to
     2 * len_window. For y it will be equal to len_window
     :param len_piece: the length of one batch of data (in seconds)
+    :param seed: seed for randomly shuffling batches
     :return: X and y in this shape: no_batches x no_windows x data
     """
 
@@ -33,6 +32,7 @@ def get_preprocessed_data(files: list, sample_rate: int = 16000, sample_frequenc
 
         # Sample frequency domains from the whole song
         freq_domains = get_frequency_domains(data, sample_frequency, len_window)
+        # Get the music divided into appriopriate parts
         pieces_of_music = get_pieces_of_music(data, sample_rate, len_piece)
 
         for piece_of_music in pieces_of_music:
@@ -42,6 +42,13 @@ def get_preprocessed_data(files: list, sample_rate: int = 16000, sample_frequenc
             X[i] = X_seq
             y[i] = y_seq
             i += 1
+
+    # Randomly shuffle the batches
+    indices = np.arange(no_batches)
+    rng = np.random.default_rng(seed)
+    rng.shuffle(indices)
+    X = X[indices]
+    y = y[indices]
 
     return X, y
 
@@ -62,8 +69,3 @@ def get_no_batches(files: list, sample_rate: int, len_piece: int) -> int:
         no_batches += (data.shape[0] / sample_rate) // len_piece
 
     return int(no_batches)
-
-
-if __name__ == '__main__':
-    filesa = [join('../raw_audio', f) for f in listdir('../raw_audio')]
-    get_preprocessed_data(filesa)
