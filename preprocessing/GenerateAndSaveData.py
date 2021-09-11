@@ -7,6 +7,19 @@ from preprocessing.PreprocessData import get_preprocessed_data
 def generate_and_save_data(directory: str, sample_rate: int = 16000, sample_frequency: int = 4, len_window: int = 4000,
                   len_piece: int = 10, trial_size: float = 0.8, val_size: float = 0.1,
                   save_folder: str = 'data', seed: int = 1001) -> None:
+    """
+    Generate data from raw .wav files and save them in a given folder
+
+    :param directory: directory with raw .wav files
+    :param sample_rate: sample rate of all the songs in the given directory (in Hz)
+    :param sample_frequency: how often to sample from a given song (in Hz)
+    :param len_window: the length of the window of data
+    :param len_piece: the length of one batch of data (in seconds)
+    :param trial_size: the size of trial data
+    :param val_size: the size of validation data
+    :param save_folder: name of directory where data should be saved
+    :param seed: seed used for RNG
+    """
 
     files = [join(directory, f) for f in listdir(directory)]
 
