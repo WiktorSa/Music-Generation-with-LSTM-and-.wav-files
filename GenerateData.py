@@ -3,12 +3,6 @@ from preprocessing import generate_and_save_data
 
 
 def create_parser():
-    """
-    Generate a parser to generate data
-
-    :return: Parser that takes data needed to get train, val and test data in appriopriate folders
-    """
-
     parser = argparse.ArgumentParser()
     parser.add_argument('-lf', help='Location of files with raw audio', type=str, required=True)
     parser.add_argument('-sr', default=16000, help='Sample rate of all songs (in Hz)', type=int, required=False)

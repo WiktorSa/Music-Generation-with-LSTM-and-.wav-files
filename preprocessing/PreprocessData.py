@@ -7,7 +7,7 @@ from preprocessing.GenerateSequences import get_sequence_X_and_y
 
 
 def get_preprocessed_data(files: list, sample_rate: int = 16000, sample_frequency: int = 4, len_window: int = 4000,
-                          len_piece: int = 10, seed: int = 1001) -> tuple[np.ndarray, np.ndarray]:
+                          len_piece: int = 10) -> tuple[np.ndarray, np.ndarray]:
     """
     Get preprocessed data that can be used for training
 
@@ -17,8 +17,7 @@ def get_preprocessed_data(files: list, sample_rate: int = 16000, sample_frequenc
     :param len_window: the length of every window of data. For X the length of the window will be equal to
     2 * len_window. For y it will be equal to len_window
     :param len_piece: the length of one batch of data (in seconds)
-    :param seed: seed for randomly shuffling batches
-    :return: X and y in this shape: no_batches x no_windows x data
+    :return: x and y in this shape: no_batches x no_windows x data
     """
 
     no_batches = get_no_batches(files, sample_rate, len_piece)
@@ -42,13 +41,6 @@ def get_preprocessed_data(files: list, sample_rate: int = 16000, sample_frequenc
             X[i] = X_seq
             y[i] = y_seq
             i += 1
-
-    # Randomly shuffle the batches
-    indices = np.arange(no_batches)
-    rng = np.random.default_rng(seed)
-    rng.shuffle(indices)
-    X = X[indices]
-    y = y[indices]
 
     return X, y
 
