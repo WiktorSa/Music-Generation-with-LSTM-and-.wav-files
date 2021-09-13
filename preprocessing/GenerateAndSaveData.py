@@ -7,7 +7,7 @@ from preprocessing.PreprocessData import get_preprocessed_data
 
 
 def generate_and_save_data(directory: str, sample_rate: int = 16000, len_song: int = 120, len_sample: float = 0.25,
-                trial_size: float = 0.7, val_size: float = 0.2, save_folder: str = 'data',
+                trial_size: float = 0.6, val_size: float = 0.2, save_folder: str = 'data',
                            save_norm: str = 'normalizer', seed: int = 1001) -> None:
     """
     Generate data from raw .wav files and save them in a given folder

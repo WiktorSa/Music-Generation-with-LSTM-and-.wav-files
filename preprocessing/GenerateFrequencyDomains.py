@@ -15,14 +15,8 @@ def get_frequency_domains(data: np.ndarray) -> np.ndarray:
     freq_domains = fft(data)
     freq_domains_separated = np.empty(shape=data.shape[0] * 2, dtype=np.float32)
 
-    for i in range(0, data.shape[0] * 2, 2):
-        try:
-            freq_domains_separated[i] = freq_domains[i // 2].real
-            freq_domains_separated[i + 1] = freq_domains[i // 2].imag
-        except ValueError:
-            print(freq_domains.shape)
-            print(freq_domains_separated.shape)
-            print(freq_domains[i // 2].real)
-            sys.exit(-1)
+    for i in range(data.shape[0]):
+        freq_domains_separated[i] = freq_domains[i].real
+        freq_domains_separated[i + data.shape[0]] = freq_domains[i].imag
 
     return freq_domains_separated

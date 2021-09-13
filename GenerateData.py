@@ -8,8 +8,8 @@ def create_parser():
     parser.add_argument('-sr', default=16000, help='Sample rate of all songs (in Hz)', type=int, required=False)
     parser.add_argument('-ls', default=120, help='Length of song (in seconds)', type=int, required=False)
     parser.add_argument('-lp', default=0.25, help='Length of sample (in seconds)', type=float, required=False)
-    parser.add_argument('-ts', default=0.8, help='Size of trial data', type=float, required=False)
-    parser.add_argument('-vs', default=0.1, help='Size of validation data', type=int, required=False)
+    parser.add_argument('-ts', default=0.6, help='Size of trial data', type=float, required=False)
+    parser.add_argument('-vs', default=0.2, help='Size of validation data', type=int, required=False)
     parser.add_argument('-sf', default='data', help='Folder where data should be stored', type=str, required=False)
     parser.add_argument('-sn', default='normalizer', help='Folder where normalizer should be stored',
                         type=str, required=False)

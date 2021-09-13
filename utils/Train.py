@@ -11,7 +11,7 @@ def train(model, train_dataloader, val_dataloader, criterion, optimizer, device:
     :param val_dataloader: validation DataLoader
     :param criterion: criterion
     :param optimizer: optimizer
-    :param device: the device to use in calculations. Either 'cpu' or 'gpu'
+    :param device: the device to use in calculations. Either 'cpu' or 'cuda'
     :param no_epochs: the number of epochs to train the model
     """
 
@@ -23,11 +23,11 @@ def train(model, train_dataloader, val_dataloader, criterion, optimizer, device:
 
         train_bar = tqdm(train_dataloader, total=len(train_dataloader), desc=f'Train on epoch {epoch}')
         for x_seq, y_seq in train_bar:
-            x_seq.to(device)
-            y_seq.to(device)
+            x_seq = x_seq.to(device)
+            y_seq = y_seq.to(device)
 
             optimizer.zero_grad()
-            model.init_hidden()
+            model.init_hidden(device)
             y_pred = model(x_seq)
             loss = criterion(y_pred, y_seq)
             loss.backward()
@@ -45,10 +45,10 @@ def train(model, train_dataloader, val_dataloader, criterion, optimizer, device:
 
         val_bar = tqdm(val_dataloader, total=len(val_dataloader), desc=f'Validation on epoch {epoch}')
         for x_seq, y_seq in val_bar:
-            x_seq.to(device)
-            y_seq.to(device)
+            x_seq = x_seq.to(device)
+            y_seq = y_seq.to(device)
 
-            model.init_hidden()
+            model.init_hidden(device)
             with torch.no_grad():
                 y_pred = model(x_seq)
                 loss = criterion(y_pred, y_seq)

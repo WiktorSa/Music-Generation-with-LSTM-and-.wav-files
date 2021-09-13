@@ -19,8 +19,8 @@ class MusicModel(nn.Module):
         super(MusicModel, self).__init__()
         self.hidden_size = hidden_size
         self.batch_size = batch_size
-        self.hidden = (torch.zeros(1, self.batch_size, self.hidden_size),
-                       torch.zeros(1, self.batch_size, self.hidden_size))
+        # User needs to call init_hidden firstly for safety reasons
+        self.hidden = None
 
         self.linear1 = nn.Linear(input_size, hidden_size)
         self.relu = nn.ReLU()
@@ -36,6 +36,6 @@ class MusicModel(nn.Module):
         prediction = self.linear2(lstm_out)
         return prediction[:, -1]
 
-    def init_hidden(self):
-        self.hidden = (torch.zeros(1, self.batch_size, self.hidden_size),
-                       torch.zeros(1, self.batch_size, self.hidden_size))
+    def init_hidden(self, device):
+        self.hidden = (torch.zeros(1, self.batch_size, self.hidden_size).to(device),
+                       torch.zeros(1, self.batch_size, self.hidden_size).to(device))
