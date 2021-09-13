@@ -19,4 +19,4 @@ class MusicDataset(Dataset):
         return self.y.shape[0]
 
     def __getitem__(self, idx):
-        return torch.from_numpy(self.x[idx]), self.y
+        return torch.from_numpy(self.x[idx]), self.y[idx]

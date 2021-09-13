@@ -4,7 +4,7 @@ import torch.nn as nn
 
 class MusicModel(nn.Module):
     def __init__(self, input_size: int = 8000, hidden_size: int = 2048, output_size: int = 4000, dropout: float = 0.2,
-                 batch_size: int = 40):
+                 no_timesteps: int = 40):
         """
         Build a model made for training on music data.
         Model consists of one fully connected layer and one LSTM
@@ -13,13 +13,14 @@ class MusicModel(nn.Module):
         :param hidden_size: hidden size
         :param output_size: size of the output data
         :param dropout: value of dropout for fully connected layer
+        :param no_timesteps: the number of timesteps to perform in one iteration of the model
         """
 
         super(MusicModel, self).__init__()
         self.hidden_size = hidden_size
-        self.batch_size = batch_size
-        self.hidden = (torch.zeros(1, self.batch_size, self.hidden_size),
-                       torch.zeros(1, self.batch_size, self.hidden_size))
+        self.no_timesteps = no_timesteps
+        self.hidden = (torch.zeros(1, self.no_timesteps, self.hidden_size),
+                       torch.zeros(1, self.no_timesteps, self.hidden_size))
 
         self.linear1 = nn.Linear(input_size, hidden_size)
         self.relu = nn.ReLU()
@@ -36,5 +37,5 @@ class MusicModel(nn.Module):
         return prediction[:, -1]
 
     def init_hidden(self):
-        self.hidden = (torch.zeros(1, self.batch_size, self.hidden_size),
-                       torch.zeros(1, self.batch_size, self.hidden_size))
+        self.hidden = (torch.zeros(1, self.no_timesteps, self.hidden_size),
+                       torch.zeros(1, self.no_timesteps, self.hidden_size))
