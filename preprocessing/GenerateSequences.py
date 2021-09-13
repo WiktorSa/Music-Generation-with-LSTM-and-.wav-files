@@ -2,29 +2,22 @@ import numpy as np
 from preprocessing.GenerateFrequencyDomains import get_frequency_domains
 
 
-def get_sequence_X_and_y(first_piece: np.ndarray, pieces: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+def generate_sequences(data: np.ndarray, len_window: int) -> tuple[np.ndarray, np.ndarray]:
     """
-    Get X and y sequences from one piece of music
+    Generate sequences of data that can be used for training
 
-    :param first_piece: piece that will be used to predict first y sequence
-    :param pieces: pieces of music
-    :return:
+    :param data: data read from .wav file
+    :param len_window: the length of one window of data
+    :return: numpy array containing the data divided into sequences
     """
-    length_of_sequence_X = int(first_piece.shape[0])
-    length_of_sequence_y = first_piece.shape[0] // 2
-    no_sequences = pieces.shape[0] // length_of_sequence_y
 
-    X_seq = np.empty(shape=(no_sequences, length_of_sequence_X), dtype=np.float32)
-    y_seq = np.empty(shape=(no_sequences, length_of_sequence_y), dtype=np.float32)
+    # Because we cannot predict the first part of the song the no_sequences will be smaller by 1
+    no_sequences = int(data.shape[0] / len_window) - 1
+    x_sequences = np.empty(shape=(no_sequences, len_window * 2), dtype=np.float32)
+    y_sequences = np.empty(shape=(no_sequences, len_window))
 
-    # y_seq - just divide pieces into proper parts:
     for i in range(no_sequences):
-        y_seq[i] = pieces[i * length_of_sequence_y:(i + 1) * length_of_sequence_y]
+        x_sequences[i] = get_frequency_domains(data[i * len_window:(i + 1) * len_window])
+        y_sequences[i] = data[(i + 1) * len_window:(i + 2) * len_window]
 
-    # X_seq - X_seq[0] is equal to first_piece. The rest of X_seq is equal to appriopriate fourier transforms
-    # of pieces
-    X_seq[0] = first_piece
-    for i in range(1, no_sequences):
-        X_seq[i] = get_frequency_domains(y_seq[i - 1])
-
-    return X_seq, y_seq
+    return x_sequences, y_sequences

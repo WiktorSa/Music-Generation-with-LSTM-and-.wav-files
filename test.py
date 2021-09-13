@@ -14,7 +14,7 @@ train_dataloader = get_data_loader(x, y)
 val_dataloader = get_data_loader(x, y)
 test_dataloader = get_data_loader(x, y)
 
-data = np.load('data/data.npz')
+
 
 # train_dataloader = get_data_loader(data['X_train'], data['y_train'])
 # val_dataloader = get_data_loader(data['X_val'], data['y_val'])

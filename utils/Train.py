@@ -2,7 +2,7 @@ import torch
 from tqdm import tqdm
 
 
-def train(model, train_dataloader, val_dataloader, criterion, optimizer, device: str, no_epochs: int = 1) -> None:
+def train(model, train_dataloader, val_dataloader, criterion, optimizer, device: str, no_epochs: int = 2000) -> None:
     """
     Train a model and validate it's performance
 

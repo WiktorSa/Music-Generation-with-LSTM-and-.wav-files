@@ -12,8 +12,8 @@ class MusicDataset(Dataset):
         :param y: output sequences
         """
 
-        self.x = x.reshape(-1, x.shape[2])
-        self.y = y.reshape(-1, y.shape[2])
+        self.x = x
+        self.y = y
 
     def __len__(self):
         return self.y.shape[0]
