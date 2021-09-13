@@ -12,11 +12,11 @@ class MusicDataset(Dataset):
         :param y: output sequences
         """
 
-        self.x = x.reshape(-1, x.shape[2])
-        self.y = y.reshape(-1, y.shape[2])
+        self.x = x
+        self.y = y
 
     def __len__(self):
         return self.y.shape[0]
 
     def __getitem__(self, idx):
-        return torch.from_numpy(self.x[idx]), self.y[idx]
+        return torch.from_numpy(self.x[idx]), torch.from_numpy(self.y[idx])
