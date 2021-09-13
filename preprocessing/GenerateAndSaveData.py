@@ -52,7 +52,7 @@ def generate_and_save_data(directory: str, sample_rate: int = 16000, len_song: i
     if not isdir(save_norm):
         mkdir(save_norm)
 
-    np.savez(join(save_folder, 'data.npz'), X_train=X_train, y_train=y_train,
+    np.savez_compressed(join(save_folder, 'data.npz'), X_train=X_train, y_train=y_train,
              X_val=X_val, y_val=y_val, X_test=X_test, y_test=y_test)
 
     dump(transformer, join(save_norm, 'normalizer.joblib'))
