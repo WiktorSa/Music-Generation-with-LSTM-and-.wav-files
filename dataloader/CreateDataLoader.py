@@ -14,5 +14,5 @@ def get_data_loader(x: np.ndarray, y: np.ndarray, batch_size: int) -> DataLoader
     """
 
     dataset = MusicDataset(x, y)
-    dataloader = DataLoader(dataset, batch_size, shuffle=True)
+    dataloader = DataLoader(dataset, batch_size, shuffle=True, drop_last=True)
     return dataloader

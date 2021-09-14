@@ -13,7 +13,8 @@ def create_parser():
     parser.add_argument('-lr', default=1e-4, help='Learning rate', type=float, required=False)
     parser.add_argument('-wd', default=1e-4, help='Value of weight decay (optimizer)', type=float, required=False)
     parser.add_argument('-ep', default=2000, help='Number of epochs', type=int, required=False)
-    parser.add_argument('-md', default='model_weights', help='Directory where model should be saved', type=str, required=False)
+    parser.add_argument('-md', default='model_weights', help='Directory where model weights should be saved', type=str,
+                        required=False)
     parser.add_argument('-sd', default=1001, help='Seed', type=int, required=False)
     return parser
 

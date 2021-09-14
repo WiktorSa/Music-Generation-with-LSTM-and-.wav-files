@@ -21,7 +21,7 @@ def train(model, train_dataloader, val_dataloader, criterion, optimizer, device:
         train_loss = 0
         no_train_inputs = 0
 
-        train_bar = tqdm(train_dataloader, total=len(train_dataloader), desc=f'Train on epoch {epoch}')
+        train_bar = tqdm(train_dataloader, total=len(train_dataloader), desc=f'Train on epoch {epoch+1}')
         for x_seq, y_seq in train_bar:
             x_seq = x_seq.to(device)
             y_seq = y_seq.to(device)
@@ -43,7 +43,7 @@ def train(model, train_dataloader, val_dataloader, criterion, optimizer, device:
         val_loss = 0
         no_val_inputs = 0
 
-        val_bar = tqdm(val_dataloader, total=len(val_dataloader), desc=f'Validation on epoch {epoch}')
+        val_bar = tqdm(val_dataloader, total=len(val_dataloader), desc=f'Validation on epoch {epoch+1}')
         for x_seq, y_seq in val_bar:
             x_seq = x_seq.to(device)
             y_seq = y_seq.to(device)
