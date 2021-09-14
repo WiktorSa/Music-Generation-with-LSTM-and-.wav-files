@@ -14,7 +14,7 @@ def generate_sequences(data: np.ndarray, len_window: int) -> tuple[np.ndarray, n
     # Because we cannot predict the first part of the song the no_sequences will be smaller by 1
     no_sequences = int(data.shape[0] / len_window) - 1
     x_sequences = np.empty(shape=(no_sequences, len_window * 2), dtype=np.float32)
-    y_sequences = np.empty(shape=(no_sequences, len_window))
+    y_sequences = np.empty(shape=(no_sequences, len_window), dtype=np.float32)
 
     for i in range(no_sequences):
         x_sequences[i] = get_frequency_domains(data[i * len_window:(i + 1) * len_window])
