@@ -11,8 +11,6 @@ def create_parser():
     parser.add_argument('-ts', default=0.6, help='Size of trial data', type=float, required=False)
     parser.add_argument('-vs', default=0.2, help='Size of validation data', type=int, required=False)
     parser.add_argument('-sf', default='data', help='Folder where data should be stored', type=str, required=False)
-    parser.add_argument('-sn', default='normalizer', help='Folder where normalizers should be stored',
-                        type=str, required=False)
     parser.add_argument('-sd', default=1001, help='Seed', type=int, required=False)
     return parser
 
@@ -20,4 +18,4 @@ def create_parser():
 if __name__ == '__main__':
     data_parser = create_parser()
     args = data_parser.parse_args()
-    generate_and_save_data(args.dr, args.sr, args.ls, args.lp, args.ts, args.vs, args.sf, args.sn, args.sd)
+    generate_and_save_data(args.dr, args.sr, args.ls, args.lp, args.ts, args.vs, args.sf, args.sd)
