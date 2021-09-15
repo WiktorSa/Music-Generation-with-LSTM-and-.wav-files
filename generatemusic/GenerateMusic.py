@@ -35,7 +35,7 @@ def generate_music(seed_dir: str = 'seeds', model_dir: str = 'model_weights', no
     files = [join(seed_dir, f) for f in listdir(seed_dir)]
     normalizer = load(join(normalizer_dir, 'normalizer.joblib'))
     model = MusicModel(input_size=input_size, hidden_size=hidden_size, output_size=output_size, dropout=dropout,
-                       batch_size=1)
+                       batch_size=1).to(device)
     model.load_state_dict(torch.load(join(model_dir, 'model_weights.pth'), map_location=torch.device(device)))
     model.eval()
 

@@ -19,7 +19,7 @@ def generate_and_save_data(directory: str, sample_rate: int = 16000, len_song: i
     :param trial_size: the size of trial data
     :param val_size: the size of validation data
     :param save_folder: name of directory where data should be saved
-    :param save_norm: name of directory where normalizer should be saved
+    :param save_norm: name of directory where normalizers should be saved
     :param seed: seed
     """
 
@@ -40,10 +40,15 @@ def generate_and_save_data(directory: str, sample_rate: int = 16000, len_song: i
     X_test, y_test = get_preprocessed_data(test_files, sample_rate, len_song, len_sample)
 
     # Normalize data
-    transformer = Normalizer()
-    X_train = transformer.fit_transform(X_train)
-    X_val = transformer.transform(X_train)
-    X_test = transformer.transform(X_test)
+    x_transformer = Normalizer()
+    X_train = x_transformer.fit_transform(X_train)
+    X_val = x_transformer.transform(X_val)
+    X_test = x_transformer.transform(X_test)
+
+    y_transformer = Normalizer()
+    y_train = y_transformer.fit_transform(y_train)
+    y_val = y_transformer.transform(y_val)
+    y_test = y_transformer.transform(y_test)
 
     # Save data
     if not isdir(save_folder):
@@ -55,4 +60,5 @@ def generate_and_save_data(directory: str, sample_rate: int = 16000, len_song: i
     np.savez(join(save_folder, 'data.npz'), X_train=X_train, y_train=y_train,
              X_val=X_val, y_val=y_val, X_test=X_test, y_test=y_test)
 
-    dump(transformer, join(save_norm, 'normalizer.joblib'))
+    dump(x_transformer, join(save_norm, 'x_normalizer.joblib'))
+    dump(y_transformer, join(save_norm, 'y_normalizer.joblib'))
