@@ -25,4 +25,4 @@ def test(model, test_dataloader, criterion, device: str) -> None:
             loss = criterion(y_pred, y_seq)
 
         test_loss += loss.item()
-        test_bar.set_postfix_str(f'Test loss: {test_loss:.6f}')
+        test_bar.set_postfix_str(f'Test loss: {test_loss}')
