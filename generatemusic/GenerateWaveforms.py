@@ -20,6 +20,6 @@ def generate_waveforms(data: np.ndarray) -> np.ndarray:
     freq_domains.real = real_values
     freq_domains.imag = imag_values
 
-    waveform = ifft(freq_domains)
+    waveform = ifft(freq_domains, norm='forward')
 
     return waveform
