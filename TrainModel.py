@@ -22,5 +22,5 @@ def create_parser():
 if __name__ == '__main__':
     data_parser = create_parser()
     args = data_parser.parse_args()
-    train_and_save_model(args.dt, args.bs, int(args.sr * args.lp * 2), args.hs, int(args.sr * args.lp), args.dp,
+    train_and_save_model(args.dt, args.bs, int(args.sr * args.lp * 2), args.hs, int(args.sr * args.lp * 2), args.dp,
                          args.lr, args.wd, args.ep, args.md, args.sd)

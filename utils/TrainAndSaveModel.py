@@ -24,7 +24,7 @@ def set_seed(seed: int):
 
 
 def train_and_save_model(directory: str = 'data', batch_size: int = 40, input_size: int = 8000,
-                         hidden_size: int = 2048, output_size: int = 4000, dropout: float = 0.2, lr: float = 1e-4,
+                         hidden_size: int = 2048, output_size: int = 8000, dropout: float = 0.2, lr: float = 1e-4,
                          weight_decay: float = 1e-4, no_epochs: int = 2000, save_model: str = 'model_weights',
                          seed: int = 1001) -> None:
     """
