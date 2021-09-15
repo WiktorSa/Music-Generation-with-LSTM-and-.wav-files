@@ -18,7 +18,7 @@ def train(model, train_dataloader, val_dataloader, criterion, optimizer, device:
     for epoch in range(no_epochs):
         # Training
         model.train()
-        train_loss = 0=
+        train_loss = 0
 
         train_bar = tqdm(train_dataloader, total=len(train_dataloader), desc=f'Train epoch {epoch+1}')
         for x_seq, y_seq in train_bar:
