@@ -21,14 +21,14 @@ def get_preprocessed_data(files: list, sample_rate: int = 16000, len_song: int =
     no_samples_per_song = int(len_song / len_sample)
     no_samples_overall = no_samples_per_song * len(files)
     len_window = int(sample_rate * len_sample)
-    x = np.empty(shape=(no_samples_overall, len_window * 2), dtype=np.float32)
-    y = np.empty(shape=(no_samples_overall, len_window), dtype=np.float32)
+    x = np.empty(shape=(no_samples_overall, len_window * 2), dtype=np.float64)
+    y = np.empty(shape=(no_samples_overall, len_window * 2), dtype=np.float64)
 
     for i, file in enumerate(files):
         _, data = wavfile.read(file)
 
-        # Sample from data (because first second of the song doesn't contain a lof of info we skip it)
-        data = data[sample_rate:sample_rate * len_song + len_window + sample_rate]
+        # Sample from data (to avoid sequences of zeros we start sampling from the fifth second)
+        data = data[sample_rate * 5:sample_rate * 5 + sample_rate * len_song + len_window]
 
         # Generate sequences
         x_seq, y_seq = generate_sequences(data, len_window)

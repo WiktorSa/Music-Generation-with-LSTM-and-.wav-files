@@ -3,7 +3,7 @@ import torch.nn as nn
 
 
 class MusicModel(nn.Module):
-    def __init__(self, input_size: int = 8000, hidden_size: int = 2048, output_size: int = 4000, dropout: float = 0.2,
+    def __init__(self, input_size: int = 8000, hidden_size: int = 2048, output_size: int = 8000, dropout: float = 0.2,
                  batch_size: int = 40):
         """
         Build a model made for training on music data.

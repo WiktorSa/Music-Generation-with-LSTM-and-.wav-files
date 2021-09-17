@@ -14,8 +14,6 @@ def test(model, test_dataloader, criterion, device: str) -> None:
 
     model.eval()
     test_loss = 0
-    no_test_inputs = 0
-
     test_bar = tqdm(test_dataloader, total=len(test_dataloader), desc=f'Test')
     for x_seq, y_seq in test_bar:
         x_seq = x_seq.to(device)
@@ -27,6 +25,4 @@ def test(model, test_dataloader, criterion, device: str) -> None:
             loss = criterion(y_pred, y_seq)
 
         test_loss += loss.item()
-        no_test_inputs += len(y_seq)
-
-        test_bar.set_postfix_str(f'Test loss: {test_loss / no_test_inputs:.4f}')
+        test_bar.set_postfix_str(f'Test loss: {test_loss:.6f}')

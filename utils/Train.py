@@ -19,9 +19,8 @@ def train(model, train_dataloader, val_dataloader, criterion, optimizer, device:
         # Training
         model.train()
         train_loss = 0
-        no_train_inputs = 0
 
-        train_bar = tqdm(train_dataloader, total=len(train_dataloader), desc=f'Train on epoch {epoch+1}')
+        train_bar = tqdm(train_dataloader, total=len(train_dataloader), desc=f'Train epoch {epoch+1}')
         for x_seq, y_seq in train_bar:
             x_seq = x_seq.to(device)
             y_seq = y_seq.to(device)
@@ -34,16 +33,13 @@ def train(model, train_dataloader, val_dataloader, criterion, optimizer, device:
             optimizer.step()
 
             train_loss += loss.item()
-            no_train_inputs += len(y_seq)
 
-            train_bar.set_postfix_str(f'Train loss: {train_loss / no_train_inputs:.4f}')
+            train_bar.set_postfix_str(f'Train loss: {train_loss:.6f}')
 
         # Validation
         model.eval()
         val_loss = 0
-        no_val_inputs = 0
-
-        val_bar = tqdm(val_dataloader, total=len(val_dataloader), desc=f'Validation on epoch {epoch+1}')
+        val_bar = tqdm(val_dataloader, total=len(val_dataloader), desc=f'Val epoch {epoch+1}')
         for x_seq, y_seq in val_bar:
             x_seq = x_seq.to(device)
             y_seq = y_seq.to(device)
@@ -54,6 +50,4 @@ def train(model, train_dataloader, val_dataloader, criterion, optimizer, device:
                 loss = criterion(y_pred, y_seq)
 
             val_loss += loss.item()
-            no_val_inputs += len(y_seq)
-
-            val_bar.set_postfix_str(f'Validation loss: {val_loss / no_val_inputs:.4f}')
+            val_bar.set_postfix_str(f'Val loss: {val_loss:.6f}')
