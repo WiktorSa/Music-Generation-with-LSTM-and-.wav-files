@@ -1,4 +1,4 @@
-# Music-Generation
+# Music Generation with LSTM and .wav files
 The project was based on the paper "Music generation with deep learning" by Vasanth Kalingeri and Srikanth Grandhe.
 Link to the paper: https://arxiv.org/abs/1612.04928
 
