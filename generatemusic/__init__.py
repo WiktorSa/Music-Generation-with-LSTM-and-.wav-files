@@ -1,1 +1,1 @@
-from generatemusic.GenerateMusic import generate_music
+from generatemusic.generate_music import generate_music

@@ -4,9 +4,9 @@ import numpy as np
 from joblib import load
 from scipy.io import wavfile
 import torch
-from preprocessing.GenerateFrequencyDomains import get_frequency_domains
+from preprocessing.generate_frequency_domains import get_frequency_domains
 from model import MusicModel
-from generatemusic.GenerateWaveforms import generate_waveforms
+from generatemusic.generate_waveforms import generate_waveforms
 
 
 def generate_music(seed_dir: str = 'seeds', model_dir: str = 'model_weights', save_dir: str = 'generated_songs',

@@ -1,1 +1,1 @@
-from model.MusicModel import MusicModel
+from model.music_model import MusicModel

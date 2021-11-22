@@ -33,27 +33,27 @@ Install all the dependencies with
 To generate training data using default parameters put .wav files in raw_audio directory and run
 
 ```bash
-  python GenerateData.py
+  python generate_data.py
 ```
 
 To train your model with default parameters run
 
 ```bash
-  python TrainModel.py
+  python train_model.py
 ```
 
 To generate music with default parameters put .wav files in seeds directory and run
 
 ```bash
-  python GenerateSongs.py
+  python generate_songs.py
 ```
 
 To see what parameters you can tune run
 
 ```bash
-  python GenerateData.py --help
-  python TrainModel.py --help
-  python GenerateSongs.py --help
+  python generate_data.py --help
+  python train_model.py --help
+  python generate_songs.py --help
 ```
 ## FAQ
 

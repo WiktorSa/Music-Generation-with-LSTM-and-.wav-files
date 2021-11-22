@@ -5,8 +5,8 @@ from os import mkdir
 from os.path import join, isdir
 from dataloader import get_data_loader
 from model import MusicModel
-from utils.Train import train
-from utils.Test import test
+from utils.train import train
+from utils.test import test
 
 
 def set_seed(seed: int):
