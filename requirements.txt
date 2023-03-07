@@ -1,6 +1,6 @@
 scipy==1.7.1
 joblib==1.2.0
 numpy==1.22.0
-torch==1.9.0
+torch==1.13.1
 tqdm==4.62.2
 scikit_learn==0.24.2
